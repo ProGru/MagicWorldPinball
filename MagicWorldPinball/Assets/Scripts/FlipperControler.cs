@@ -45,4 +45,15 @@ public class FlipperControler : MonoBehaviour
         }
 
     }
+
+    public void LeftClick()
+    {
+        StartCoroutine(FlipperLeft());
+    }
+
+    public void RightClick()
+    {
+        StartCoroutine(FlipperRight());
+    }
+
 }
