@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BallControler : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class BallControler : MonoBehaviour
     public float moveSpeed = 2f;
     public GameObject startPosition;
     public bool gameEnded = true;
+    public GameObject popupPrefab;
+    public TextMeshProUGUI scoreText;
+    public int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +24,7 @@ public class BallControler : MonoBehaviour
         gameEnded = true;
         rb.transform.position = startPosition.transform.position;
         rb.simulated = false;
+        Instantiate(popupPrefab, startPosition.transform.position, Quaternion.identity, this.transform);
     }
 
     public void Restart(float force)
@@ -35,6 +40,17 @@ public class BallControler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(new Vector2(Input.acceleration.x*moveSpeed, 0));
+        Nudding();
+        SetScore();
+    }
+
+    public void Nudding()
+    {
+        rb.AddForce(new Vector2(Input.acceleration.x * moveSpeed, 0));
+    }
+
+    public void SetScore()
+    {
+        scoreText.SetText(score.ToString());
     }
 }

@@ -6,11 +6,6 @@ public class FlipperControler : MonoBehaviour
 {
     public HingeJoint2D lefthingeJoint2D;
     public HingeJoint2D righthingeJoint2D;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
 
     IEnumerator FlipperRight()
@@ -34,16 +29,7 @@ public class FlipperControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            StartCoroutine(FlipperLeft());
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            StartCoroutine(FlipperRight());
-        }
-
+        KeyControll();
     }
 
     public void LeftClick()
@@ -56,4 +42,17 @@ public class FlipperControler : MonoBehaviour
         StartCoroutine(FlipperRight());
     }
 
+
+    public void KeyControll()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            StartCoroutine(FlipperLeft());
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            StartCoroutine(FlipperRight());
+        }
+    }
 }

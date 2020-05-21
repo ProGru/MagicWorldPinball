@@ -9,8 +9,12 @@ public class InputController : MonoBehaviour
     private Vector3 exitPoint;
     public BallControler ballControler;
 
-    // Update is called once per frame
     void Update()
+    {
+        StartingSpring();
+    }
+
+    public void StartingSpring()
     {
         if (ballControler.gameEnded)
         {
@@ -21,7 +25,7 @@ public class InputController : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 exitPoint = Input.mousePosition;
-                ballControler.Restart( Vector3.Distance(touchPoint, exitPoint) * 2);
+                ballControler.Restart(Vector3.Distance(touchPoint, exitPoint) * 2);
             }
         }
     }
