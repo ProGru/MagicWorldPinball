@@ -5,13 +5,13 @@ using TMPro;
 
 public class BallControler : MonoBehaviour
 {
-    Rigidbody2D rb;
+    static Rigidbody2D  rb;
     public float moveSpeed = 2f;
     public GameObject startPosition;
     public bool gameEnded = true;
     public GameObject popupPrefab;
     public TextMeshProUGUI scoreText;
-    public int score = 0;
+    static public int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +37,6 @@ public class BallControler : MonoBehaviour
         rb.AddForce(new Vector2(0, force));
     }
 
-
     private void FixedUpdate()
     {
         Nudding();
@@ -52,5 +51,15 @@ public class BallControler : MonoBehaviour
     public void SetScore()
     {
         scoreText.SetText(score.ToString());
+    }
+
+    public static void AddPoint(int points)
+    {
+        score += points;
+    }
+
+    public static void AddForceToBall(float force1, float force2)
+    {
+        rb.AddForce(new Vector2(force1, force2));
     }
 }
