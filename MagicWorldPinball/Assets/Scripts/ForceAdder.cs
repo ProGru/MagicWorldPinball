@@ -9,6 +9,9 @@ public class ForceAdder : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        BallControler.AddForceToBall(force1, force2);
+        if (collision.gameObject.tag == "ball")
+        {
+            BallControler.AddForceToBall(force1, force2);
+        }
     }
 }

@@ -8,6 +8,9 @@ public class EndGame : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        ballControler.GameOver();
+        if (collision.gameObject.tag == "ball")
+        {
+            ballControler.GameOver();
+        }
     }
 }

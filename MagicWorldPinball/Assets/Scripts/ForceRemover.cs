@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreAdder : MonoBehaviour
+public class ForceRemover : MonoBehaviour
 {
-    public int pointToAdd = 0;
-    public AudioSource sound;
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "ball")
         {
-            BallControler.AddPoint(pointToAdd);
-            sound.Play();
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0;
         }
     }
 }
