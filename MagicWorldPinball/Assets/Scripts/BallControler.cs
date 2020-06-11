@@ -12,11 +12,17 @@ public class BallControler : MonoBehaviour
     public GameObject popupPrefab;
     public TextMeshProUGUI scoreText;
     static public int score = 0;
+    public static GameObject sparkles;
+    public GameObject sparklesObject;
+    public int playTime;
+    public static BallControler ballControler;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sparkles = sparklesObject;
+        ballControler = this;
     }
 
     public void GameOver()
@@ -35,6 +41,14 @@ public class BallControler : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = 0f;
         rb.AddForce(new Vector2(0, force));
+        if (Scores.maxScore < score)
+        {
+            Scores.maxScore = score;
+        }
+        score = 0;
+        SetScore();
+        Scores.plays++;
+        AudioMenager.rune.Play();
     }
 
     private void FixedUpdate()
@@ -61,5 +75,24 @@ public class BallControler : MonoBehaviour
     public static void AddForceToBall(float force1, float force2)
     {
         rb.AddForce(new Vector2(force1, force2));
+    }
+
+    public static void PlaySparkleAnimation()
+    {
+        sparkles.transform.position = rb.transform.position;
+        ballControler.PlayEffect();
+    }
+
+
+    public void PlayEffect()
+    {
+        StartCoroutine(BallBehavior());
+    }
+
+    public IEnumerator BallBehavior()
+    {
+        sparkles.SetActive(true);
+        yield return new WaitForSeconds(playTime);
+        sparkles.SetActive(false);
     }
 }

@@ -18,6 +18,7 @@ public class BarellBehavior : MonoBehaviour
             rb.angularVelocity = 0;
             rb.gameObject.transform.position = spawnPosition.position;
             rb.AddForce(forceToADD);
+            AudioMenager.explosion.Play();
             Debug.Log("add");
         }
 

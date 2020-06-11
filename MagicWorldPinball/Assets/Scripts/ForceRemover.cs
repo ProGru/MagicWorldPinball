@@ -11,6 +11,8 @@ public class ForceRemover : MonoBehaviour
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0;
+            BallControler.PlaySparkleAnimation();
+            AudioMenager.rune.Play();
         }
     }
 }

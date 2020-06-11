@@ -11,6 +11,7 @@ public class EndGame : MonoBehaviour
         if (collision.gameObject.tag == "ball")
         {
             ballControler.GameOver();
+            AudioMenager.gameOver.Play();
         }
     }
 }
