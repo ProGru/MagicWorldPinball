@@ -35,7 +35,8 @@ public class BallControler : MonoBehaviour
         PlayerPrefs.SetInt("Mode",0);
         AddScoreToLeaderboard(GPGSIds.leaderboard_leaderboard_1_student_3,score);
         if(score > 1000)
-        { 
+        {   
+            //Achivement za wysoki wynik
             UnlockAchivement(GPGSIds.achievement_hidden_achievement_1);
         }
         rb.transform.position = startPosition.transform.position;
@@ -75,6 +76,7 @@ public class BallControler : MonoBehaviour
         if (Mode == 1)
         {
             score = PlayerPrefs.GetInt("SavedScore");
+            //Achivement za wczytanie gry
             UnlockAchivement(GPGSIds.achievement_achievement_1);
         }
         else
@@ -110,6 +112,7 @@ public class BallControler : MonoBehaviour
     public static void AddPoint(int points)
     {
         score += points;
+        //Achivement za udzerzenie czegoś 100 razy
         IncrementAchivement(GPGSIds.achievement_incremental_achievement_1,1);
     }
 
