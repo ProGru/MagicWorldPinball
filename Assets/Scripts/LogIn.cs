@@ -22,9 +22,9 @@ public class LogIn : MonoBehaviour
     void SignIn()
     {
         Debug.Log("Going to log in to GPG");
-        Social.localUser.Authenticate(success => 
+        Social.localUser.Authenticate((result) => 
         { 
-            if (success)
+            if (result)
             {
                Debug.Log("Process completed successfully!");
                buttonLog.interactable = false;
