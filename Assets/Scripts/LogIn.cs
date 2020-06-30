@@ -8,33 +8,21 @@ using UnityEngine.SocialPlatforms;
 public class LogIn : MonoBehaviour
 {
     public Button buttonLog;
+    public static PlayGamesPlatform platform;
     void Start()
     {
-        Log();
-    }
-    public void Log()
-    {
-         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
-         PlayGamesPlatform.InitializeInstance(config);
-         PlayGamesPlatform.Activate();
-         SignIn();
-    }
-    void SignIn()
-    {
-        Debug.Log("Going to log in to GPG");
-        Social.localUser.Authenticate((result) => 
-        { 
-            if (result)
-            {
-               Debug.Log("Process completed successfully!");
-               buttonLog.interactable = false;
+        if (platform == null)
+        {
+            PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
+            PlayGamesPlatform.InitializeInstance(config);
+            PlayGamesPlatform.DebugLogEnabled = true;
+            PlayGamesPlatform.Activate();
 
-            }
-            else
-            {
-                Debug.Log("Login failed!");
-                buttonLog.interactable = true;
-            }
+            platform = PlayGamesPlatform.Activate();
+        }
+    
+        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, (result) =>{
+        // handle results
         });
     }
 

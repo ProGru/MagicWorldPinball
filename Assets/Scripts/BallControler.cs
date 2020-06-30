@@ -77,7 +77,7 @@ public class BallControler : MonoBehaviour
         {
             score = PlayerPrefs.GetInt("SavedScore");
             //Achivement za wczytanie gry
-            UnlockAchivement(GPGSIds.achievement_achievement_1);
+            UnlockAchivement(GPGSIds.achievement_achievement_2);
         }
         else
         {
@@ -90,6 +90,7 @@ public class BallControler : MonoBehaviour
     }
     public void SaveScore()
     {
+        UnlockAchivement(GPGSIds.achievement_achievement_1);
         PlayerPrefs.SetInt("SavedScore", score);
     }
 
