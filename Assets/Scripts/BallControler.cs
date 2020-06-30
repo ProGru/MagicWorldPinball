@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
 public class BallControler : MonoBehaviour
 {
@@ -30,6 +33,11 @@ public class BallControler : MonoBehaviour
     {
         gameEnded = true;
         PlayerPrefs.SetInt("Mode",0);
+        AddScoreToLeaderboard(GPGSIds.leaderboard_leaderboard_1_student_3,score);
+        if(score > 1000)
+        { 
+            UnlockAchivement(GPGSIds.achievement_hidden_achievement_1);
+        }
         rb.transform.position = startPosition.transform.position;
         rb.simulated = false;
         Instantiate(popupPrefab, startPosition.transform.position, Quaternion.identity, this.transform);
@@ -67,6 +75,7 @@ public class BallControler : MonoBehaviour
         if (Mode == 1)
         {
             score = PlayerPrefs.GetInt("SavedScore");
+            UnlockAchivement(GPGSIds.achievement_achievement_1);
         }
         else
         {
@@ -101,6 +110,7 @@ public class BallControler : MonoBehaviour
     public static void AddPoint(int points)
     {
         score += points;
+        IncrementAchivement(GPGSIds.achievement_incremental_achievement_1,1);
     }
 
     public static void AddForceToBall(float force1, float force2)
@@ -126,4 +136,29 @@ public class BallControler : MonoBehaviour
         yield return new WaitForSeconds(playTime);
         sparkles.SetActive(false);
     }
+    public static void AddScoreToLeaderboard(string leaderboardId, int score)
+    {
+        Social.ReportScore(score, leaderboardId, success =>
+        {
+            Debug.Log(leaderboardId);
+        });
+    }
+    public static void UnlockAchivement(string id)
+    {
+        //Jednorazowe zaliczenie
+        Social.ReportProgress(id, 100, success =>
+        { 
+            Debug.Log(id);
+        });
+    }
+    public static void IncrementAchivement(string id, int stepsToIncrement)
+    {
+        //Zaliczenie krok po kroku
+        PlayGamesPlatform.Instance.IncrementAchievement(id, stepsToIncrement, success =>
+        {
+            Debug.Log(id);
+        });
+    }
+
+
 }
