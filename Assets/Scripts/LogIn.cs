@@ -7,23 +7,16 @@ using UnityEngine.SocialPlatforms;
 
 public class LogIn : MonoBehaviour
 {
-    public static PlayGamesPlatform platform;
     public Button buttonLog;
     void Start()
     {
-        if (platform == null)
-        {
-            Log();
-            platform = PlayGamesPlatform.Activate();
-        }
+        Log();
     }
     public void Log()
     {
-         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().RequestEmail().Build();
-         PlayGamesPlatform.DebugLogEnabled = true;
+         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
          PlayGamesPlatform.InitializeInstance(config);
          PlayGamesPlatform.Activate();
- 
          SignIn();
     }
     void SignIn()
